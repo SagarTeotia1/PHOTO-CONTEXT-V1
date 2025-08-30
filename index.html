@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .upload-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px dashed #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+
+        .upload-section h2 {
+            color: #495057;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .upload-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .image-preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .options-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .options-section h2 {
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-group textarea,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group textarea:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .process-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .process-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-section {
+            grid-column: 1 / -1;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .results-section h2 {
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .result-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            margin-top: 20px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            margin-top: 20px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        .history-section {
+            grid-column: 1 / -1;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .history-section h2 {
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .history-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .history-item h4 {
+            color: #495057;
+            margin-bottom: 5px;
+        }
+
+        .history-item p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .search-section {
+            grid-column: 1 / -1;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .search-section h2 {
+            color: #495057;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-input-group {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-options {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .search-options select {
+            padding: 8px 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .search-results {
+            margin-top: 30px;
+        }
+
+        .search-results h3 {
+            color: #495057;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-result-item {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .search-result-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .search-result-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+
+        .search-result-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .search-result-score {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .search-result-context {
+            color: #495057;
+            line-height: 1.5;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .search-loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+        }
+
+        .search-summary {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+        }
+
+        .summary-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #495057;
+            font-size: 1rem;
+        }
+
+        .stat-item strong {
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI _ Image DRIVE</h1>
+        </div>
+
+        <div class="main-content">
+            <div class="upload-section">
+                <h2>📤 Upload Images</h2>
+                <div class="file-upload">
+                    <input type="file" id="imageInput" accept="image/*" multiple onchange="previewImages(event)">
+                    <label for="imageInput" class="upload-btn">
+                        📁 Choose Image Files (Multiple)
+                    </label>
+                </div>
+                <div class="image-preview" id="imagePreview"></div>
+                <div class="upload-info" id="uploadInfo" style="display: none;">
+                    <p><strong>Selected:</strong> <span id="imageCount">0</span> images</p>
+                    <p><strong>Total size:</strong> <span id="totalSize">0</span> MB</p>
+                </div>
+            </div>
+
+            <div class="options-section">
+                <h2>⚙️ Analysis Options</h2>
+                <div class="form-group">
+                    <label for="customPrompt">Custom Analysis Prompt:</label>
+                    <textarea id="customPrompt" placeholder="Dynamic Universal Image Analysis Prompt - Comprehensive 10-step analysis including OCR, object recognition, people analysis, context, brands, aesthetics, cultural references, metadata, and human-friendly summary.">Dynamic Universal Image Analysis Prompt
+
+System Role:
+You are an advanced multimodal AI trained to perform exhaustive image analysis with maximum depth, precision, and creativity. Your job is not just to describe, but to extract, interpret, cross-reference, and contextualize every possible detail from an image.
+
+Analyze the input image step by step and provide the most comprehensive extraction possible. Follow this layered approach:
+
+1. Raw Text Extraction (OCR++)
+2. Object & Scene Recognition
+3. People & Identity Clues
+4. Event / Situation Context
+5. Brand / Logo / Product Detection
+6. Colors, Style & Aesthetic
+7. Internet / Cultural Cross-Reference
+8. Metadata & Hidden Clues
+9. Contextual Reasoning
+10. Rich Human-Friendly Summary
+
+Please be comprehensive and provide as much detail as possible.</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="customFilename">Custom JSON Filename (Optional):</label>
+                    <input type="text" id="customFilename" placeholder="my_image_analysis">
+                </div>
+                <button class="process-btn" onclick="processImage()" id="processBtn" disabled>
+                    🚀 Process Images with Gemini
+                </button>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <h2>🔍 Search Photos</h2>
+            <div class="search-container">
+                <div class="search-input-group">
+                    <input type="text" id="searchInput" placeholder="Describe what you're looking for..." class="search-input">
+                    <button onclick="searchImages()" class="search-btn">🔍 Search</button>
+                </div>
+                <div class="search-options">
+                    <label for="maxResults">Max Results:</label>
+                    <select id="maxResults">
+                        <option value="3">3</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="search-summary" id="searchSummary" style="display: none;">
+                <div class="summary-stats">
+                    <span class="stat-item">📊 <strong id="totalBatches">0</strong> batches</span>
+                    <span class="stat-item">🖼️ <strong id="totalImages">0</strong> images</span>
+                    <span class="stat-item">🕒 Last updated: <span id="lastUpdated">Never</span></span>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button onclick="showAllBatches()" class="search-btn" style="background: #28a745;">
+                        📋 View All Batches
+                    </button>
+                </div>
+            </div>
+            <div class="search-results" id="searchResults" style="display: none;">
+                <h3>Search Results</h3>
+                <div id="searchResultsContent"></div>
+            </div>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <h2>📊 Analysis Results</h2>
+            <div id="resultsContent"></div>
+        </div>
+
+        <div class="history-section" id="historySection" style="display: none;">
+            <h2>📋 Processing History</h2>
+            <div id="historyContent"></div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Powered by:</strong> <a href="https://sagarteotia.in" target="_blank">sagarteotia.in</a></p>
+        </div>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+        let processingHistory = [];
+
+        function previewImages(event) {
+            const files = Array.from(event.target.files);
+            if (files.length > 0) {
+                selectedFiles = files;
+                
+                // Update upload info
+                const imageCount = document.getElementById('imageCount');
+                const totalSize = document.getElementById('totalSize');
+                const uploadInfo = document.getElementById('uploadInfo');
+                
+                imageCount.textContent = files.length;
+                const totalSizeMB = (files.reduce((sum, file) => sum + file.size, 0) / (1024 * 1024)).toFixed(2);
+                totalSize.textContent = totalSizeMB;
+                uploadInfo.style.display = 'block';
+                
+                // Create preview grid
+                const preview = document.getElementById('imagePreview');
+                let previewHTML = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px;">';
+                
+                files.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewHTML += `
+                            <div style="text-align: center;">
+                                <img src="${e.target.result}" alt="Preview ${index + 1}" style="max-width: 100%; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #dee2e6;">
+                                <p style="font-size: 0.8rem; margin-top: 5px; color: #6c757d;">${file.name}</p>
+                            </div>
+                        `;
+                        
+                        // Update preview when all images are loaded
+                        if (index === files.length - 1) {
+                            preview.innerHTML = previewHTML + '</div>';
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                });
+                
+                document.getElementById('processBtn').disabled = false;
+            }
+        }
+
+        async function processImage() {
+            if (!selectedFiles || selectedFiles.length === 0) {
+                alert('Please select at least one image first!');
+                return;
+            }
+
+            const processBtn = document.getElementById('processBtn');
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsContent = document.getElementById('resultsContent');
+
+            // Show loading state
+            processBtn.disabled = true;
+            processBtn.textContent = '🔄 Processing...';
+            resultsSection.style.display = 'block';
+            resultsContent.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Processing ${selectedFiles.length} image${selectedFiles.length > 1 ? 's' : ''} with Gemini 2.5 Pro...</p>
+                </div>
+            `;
+
+            try {
+                // Create FormData for file upload
+                const formData = new FormData();
+                
+                // Add all selected files
+                selectedFiles.forEach(file => {
+                    formData.append('images', file);
+                });
+                
+                formData.append('prompt', document.getElementById('customPrompt').value);
+                formData.append('filename', document.getElementById('customFilename').value);
+
+                // Send to backend for actual Gemini processing
+                const response = await fetch('/process-image', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Display successful results
+                    displayResults(result.result);
+                    // Add to history
+                    addToHistory(result.result);
+                } else {
+                    // Display error results
+                    displayResults(result.result);
+                }
+
+            } catch (error) {
+                console.error('Processing error:', error);
+                resultsContent.innerHTML = `
+                    <div class="error">
+                        <strong>❌ Processing failed:</strong> ${error.message}
+                        <br><br>
+                        <small>Check the server logs for more details.</small>
+                    </div>
+                `;
+            } finally {
+                processBtn.disabled = false;
+                processBtn.textContent = '🚀 Process Images with Gemini';
+            }
+        }
+
+
+
+        function displayResults(result) {
+            const resultsContent = document.getElementById('resultsContent');
+            
+            // Check if this is a batch result
+            if (result.images && Array.isArray(result.images)) {
+                displayBatchResults(result);
+                return;
+            }
+            
+            // Handle single image result (backward compatibility)
+            displaySingleImageResult(result);
+        }
+        
+        function displayBatchResults(batchResult) {
+            const resultsContent = document.getElementById('resultsContent');
+            
+            const totalImages = batchResult.total_images || 0;
+            const successfulImages = batchResult.successful_images || 0;
+            const failedImages = batchResult.failed_images || 0;
+            const batchSummary = batchResult.batch_summary || '';
+            const status = batchResult.processing_status || 'unknown';
+            
+            let resultsHTML = `
+                <div class="result-content">
+                    <div class="${status === 'completed' ? 'success' : 'error'}">
+                        <strong>${status === 'completed' ? '✅' : '❌'} Batch Processing ${status === 'completed' ? 'Completed' : 'Failed'}</strong>
+                    </div>
+                    
+                    <h3>Batch Analysis Results</h3>
+                    <p><strong>Total Images:</strong> ${totalImages}</p>
+                    <p><strong>Successful:</strong> ${successfulImages}</p>
+                    <p><strong>Failed:</strong> ${failedImages}</p>
+                    <p><strong>Summary:</strong> ${batchSummary}</p>
+                    <p><strong>Timestamp:</strong> ${new Date(batchResult.batch_timestamp).toLocaleString()}</p>
+                    
+                    <h4>Individual Image Results:</h4>
+                    <div style="max-height: 400px; overflow-y: auto;">
+            `;
+            
+            batchResult.images.forEach((imageResult, index) => {
+                const imageName = imageResult.image_name || 'Unknown';
+                const imageSize = imageResult.image_size || { width: 0, height: 0, format: 'Unknown' };
+                const context = imageResult.context || 'No context available';
+                const imgStatus = imageResult.processing_status || 'unknown';
+                const uploadPath = imageResult.upload_path || 'Not saved';
+                
+                resultsHTML += `
+                    <div style="border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; margin: 10px 0; background: ${imgStatus === 'success' ? '#f8f9fa' : '#fff5f5'}">
+                        <h5 style="margin: 0 0 10px 0; color: ${imgStatus === 'success' ? '#28a745' : '#dc3545'}">
+                            ${imgStatus === 'success' ? '✅' : '❌'} ${imageName}
+                        </h5>
+                        <p><strong>Size:</strong> ${imageSize.width} × ${imageSize.height} (${imageSize.format})</p>
+                        <p><strong>Status:</strong> ${imgStatus}</p>
+                        <p><strong>Upload Path:</strong> ${uploadPath}</p>
+                        ${imgStatus === 'success' ? `<p><strong>Context:</strong> ${context.substring(0, 200)}${context.length > 200 ? '...' : ''}</p>` : ''}
+                    </div>
+                `;
+            });
+            
+            resultsHTML += `
+                    </div>
+                    
+                    <button class="download-btn" onclick="downloadJSON(${JSON.stringify(batchResult).replace(/"/g, '&quot;')})">
+                        📥 Download Batch JSON
+                    </button>
+                </div>
+            `;
+            
+            resultsContent.innerHTML = resultsHTML;
+        }
+        
+        function displaySingleImageResult(result) {
+            const resultsContent = document.getElementById('resultsContent');
+            
+            // Safely access properties with fallbacks
+            const imageName = result.image_name || 'Unknown';
+            const imageSize = result.image_size || { width: 0, height: 0, format: 'Unknown' };
+            const timestamp = result.timestamp || new Date().toISOString();
+            const context = result.context || 'No context available';
+            const status = result.processing_status || 'unknown';
+            const uploadPath = result.upload_path || 'Not saved';
+            
+            if (status === 'success') {
+                resultsContent.innerHTML = `
+                    <div class="result-content">
+                        <div class="success">
+                            <strong>✅ Image processed successfully!</strong>
+                        </div>
+                        
+                        <h3>Analysis Results</h3>
+                        <p><strong>Image:</strong> ${imageName}</p>
+                        <p><strong>Size:</strong> ${imageSize.width} × ${imageSize.height}</p>
+                        <p><strong>Format:</strong> ${imageSize.format}</p>
+                        <p><strong>Timestamp:</strong> ${new Date(timestamp).toLocaleString()}</p>
+                        <p><strong>Upload Path:</strong> ${uploadPath}</p>
+                        
+                        <h4>Context Analysis:</h4>
+                        <p>${context}</p>
+                        
+                        <button class="download-btn" onclick="downloadJSON(${JSON.stringify(result).replace(/"/g, '&quot;')})">
+                            📥 Download JSON
+                        </button>
+                    </div>
+                `;
+            } else {
+                // Handle error case
+                const errorMessage = result.error || 'Unknown error occurred';
+                resultsContent.innerHTML = `
+                    <div class="result-content">
+                        <div class="error">
+                            <strong>❌ Processing failed:</strong> ${errorMessage}
+                        </div>
+                        
+                        <h3>Error Details</h3>
+                        <p><strong>Image:</strong> ${imageName}</p>
+                        <p><strong>Size:</strong> ${imageSize.width} × ${imageSize.height}</p>
+                        <p><strong>Format:</strong> ${imageSize.format}</p>
+                        <p><strong>Timestamp:</strong> ${new Date(timestamp).toLocaleString()}</p>
+                        <p><strong>Upload Path:</strong> ${uploadPath}</p>
+                        
+                        <h4>Error Information:</h4>
+                        <p>${context}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function downloadJSON(data) {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `image_analysis_${Date.now()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function addToHistory(result) {
+            processingHistory.unshift({
+                id: Date.now(),
+                ...result
+            });
+            
+            // Keep only last 10 items
+            if (processingHistory.length > 10) {
+                processingHistory = processingHistory.slice(0, 10);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('imageAnalysisHistory', JSON.stringify(processingHistory));
+        }
+
+        function showHistory() {
+            const historySection = document.getElementById('historySection');
+            const historyContent = document.getElementById('historyContent');
+            
+            if (historySection.style.display === 'none') {
+                historySection.style.display = 'block';
+                
+                if (processingHistory.length === 0) {
+                    historyContent.innerHTML = '<p>No processing history found.</p>';
+                } else {
+                    let historyHTML = '';
+                    processingHistory.forEach((item, index) => {
+                        historyHTML += `
+                            <div class="history-item" onclick="showHistoryItem(${index})">
+                                <h4>📸 ${item.image_name}</h4>
+                                <p><strong>Status:</strong> ${item.processing_status}</p>
+                                <p><strong>Timestamp:</strong> ${new Date(item.timestamp).toLocaleString()}</p>
+                            </div>
+                        `;
+                    });
+                    historyContent.innerHTML = historyHTML;
+                }
+            } else {
+                historySection.style.display = 'none';
+            }
+        }
+
+        function showHistoryItem(index) {
+            const item = processingHistory[index];
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsContent = document.getElementById('resultsContent');
+            
+            resultsSection.style.display = 'block';
+            displayResults(item);
+            
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Load history from localStorage on page load
+        window.onload = function() {
+            const savedHistory = localStorage.getItem('imageAnalysisHistory');
+            if (savedHistory) {
+                processingHistory = JSON.parse(savedHistory);
+            }
+        };
+
+        // Search functionality
+        async function searchImages() {
+            const searchInput = document.getElementById('searchInput');
+            const maxResults = document.getElementById('maxResults');
+            const searchResults = document.getElementById('searchResults');
+            const searchResultsContent = document.getElementById('searchResultsContent');
+            
+            if (!searchInput.value.trim()) {
+                alert('Please enter a search query!');
+                return;
+            }
+            
+                    // Show loading state
+        searchResults.style.display = 'block';
+        searchResultsContent.innerHTML = `
+            <div class="search-loading">
+                <div class="spinner"></div>
+                <p>Searching for "${searchInput.value}"...</p>
+            </div>
+        `;
+        
+        // Show summary section
+        const searchSummary = document.getElementById('searchSummary');
+        searchSummary.style.display = 'block';
+            
+            try {
+                const response = await fetch('/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: searchInput.value.trim(),
+                        max_results: parseInt(maxResults.value)
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    displaySearchResults(result);
+                } else {
+                    searchResultsContent.innerHTML = `
+                        <div class="error">
+                            <strong>❌ Search failed:</strong> ${result.error || 'Unknown error'}
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('Search error:', error);
+                searchResultsContent.innerHTML = `
+                    <div class="error">
+                        <strong>❌ Search failed:</strong> ${error.message}
+                        <br><br>
+                        <small>Check the server logs for more details.</small>
+                    </div>
+                `;
+            }
+        }
+        
+        function displaySearchResults(searchData) {
+            const searchResultsContent = document.getElementById('searchResultsContent');
+            
+            // Update summary information
+            const totalBatches = document.getElementById('totalBatches');
+            const totalImages = document.getElementById('totalImages');
+            const lastUpdated = document.getElementById('lastUpdated');
+            
+            // Try to get summary info from the first result's source file
+            if (searchData.results && searchData.results.length > 0) {
+                const firstResult = searchData.results[0];
+                const sourceFile = firstResult.source_file;
+                
+                // Load the source file to get summary info
+                fetch(`/download/${sourceFile}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success && data.content) {
+                            try {
+                                const jsonData = JSON.parse(data.content);
+                                if (jsonData.batches) {
+                                    totalBatches.textContent = jsonData.batches.length;
+                                    totalImages.textContent = jsonData.total_images_processed || 0;
+                                    lastUpdated.textContent = new Date(jsonData.last_updated || '').toLocaleString();
+                                }
+                            } catch (e) {
+                                console.log('Could not parse summary data');
+                            }
+                        }
+                    })
+                    .catch(e => console.log('Could not load summary data'));
+            }
+            
+            if (!searchData.results || searchData.results.length === 0) {
+                searchResultsContent.innerHTML = `
+                    <div class="no-results">
+                        <p>No images found matching "${searchData.query}"</p>
+                        <p>Try different keywords or check if you have processed images</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let resultsHTML = `
+                <div class="search-summary">
+                    <p><strong>Found ${searchData.total_found} images</strong> matching "${searchData.query}"</p>
+                </div>
+            `;
+            
+            searchData.results.forEach((result, index) => {
+                const imageName = result.image_name || 'Unknown';
+                const imageSize = result.image_size || { width: 0, height: 0, format: 'Unknown' };
+                const context = result.context || 'No context available';
+                const relevanceScore = result.relevance_score || 0;
+                const timestamp = result.timestamp || 'Unknown';
+                const imageUrl = result.image_url || '';
+                const imageExists = result.image_exists || false;
+                
+                resultsHTML += `
+                    <div class="search-result-item">
+                        <div class="search-result-header">
+                            ${imageExists && imageUrl ? 
+                                `<img src="${imageUrl}" alt="${imageName}" class="search-result-image">` : 
+                                `<div class="search-result-image" style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; color: #6c757d;">
+                                    📷
+                                </div>`
+                            }
+                            <div class="search-result-info">
+                                <div class="search-result-title">${imageName}</div>
+                                                                 <div class="search-result-meta">
+                                     Size: ${imageSize.width} × ${imageSize.height} (${imageSize.format})<br>
+                                     Date: ${new Date(timestamp).toLocaleString()}<br>
+                                     Batch: ${result.batch_id || 'Unknown'}<br>
+                                     Source: ${result.source_file || 'Unknown'}
+                                 </div>
+                            </div>
+                            <div class="search-result-score">
+                                ${Math.round(relevanceScore * 100)}% match
+                            </div>
+                        </div>
+                        <div class="search-result-context">
+                            <strong>Context:</strong> ${context.substring(0, 300)}${context.length > 300 ? '...' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            searchResultsContent.innerHTML = resultsHTML;
+        }
+        
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchImages();
+            }
+        });
+
+        // Function to show all batches
+        async function showAllBatches() {
+            try {
+                // Find the main JSON file (should be image_analysis_history.json)
+                const response = await fetch('/download/image_analysis_history.json');
+                if (!response.ok) {
+                    alert('No batch history found. Process some images first!');
+                    return;
+                }
+                
+                const data = await response.json();
+                if (data.success && data.content) {
+                    const jsonData = JSON.parse(data.content);
+                    displayAllBatches(jsonData);
+                }
+            } catch (error) {
+                console.error('Error loading batches:', error);
+                alert('Error loading batch history. Please try again.');
+            }
+        }
+
+        function displayAllBatches(batchData) {
+            const searchResults = document.getElementById('searchResults');
+            const searchResultsContent = document.getElementById('searchResultsContent');
+            
+            searchResults.style.display = 'block';
+            
+            if (!batchData.batches || batchData.batches.length === 0) {
+                searchResultsContent.innerHTML = `
+                    <div class="no-results">
+                        <p>No batches found</p>
+                        <p>Process some images first to see batch history</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let resultsHTML = `
+                <h3>📋 All Processing Batches</h3>
+                <div class="search-summary">
+                    <p><strong>Total Batches:</strong> ${batchData.batches.length}</p>
+                    <p><strong>Total Images Processed:</strong> ${batchData.total_images_processed || 0}</p>
+                    <p><strong>Last Updated:</strong> ${new Date(batchData.last_updated || '').toLocaleString()}</p>
+                </div>
+            `;
+            
+            batchData.batches.forEach((batch, batchIndex) => {
+                const batchStatus = batch.processing_status || 'unknown';
+                const batchSummary = batch.batch_summary || 'No summary available';
+                const batchTimestamp = batch.batch_timestamp || batch.timestamp || 'Unknown';
+                
+                resultsHTML += `
+                    <div class="search-result-item">
+                        <div class="search-result-header">
+                            <div class="search-result-image" style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; color: #6c757d; font-size: 2rem;">
+                                📦
+                            </div>
+                            <div class="search-result-info">
+                                <div class="search-result-title">Batch ${batch.batch_id || batchIndex + 1}</div>
+                                <div class="search-result-meta">
+                                    Status: ${batchStatus}<br>
+                                    Images: ${batch.total_images || 0} total, ${batch.successful_images || 0} successful, ${batch.failed_images || 0} failed<br>
+                                    Date: ${new Date(batchTimestamp).toLocaleString()}
+                                </div>
+                            </div>
+                            <div class="search-result-score" style="background: ${batchStatus === 'completed' ? '#28a745' : '#dc3545'}">
+                                ${batchStatus === 'completed' ? '✅' : '❌'} ${batchStatus}
+                            </div>
+                        </div>
+                        <div class="search-result-context">
+                            <strong>Summary:</strong> ${batchSummary}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            searchResultsContent.innerHTML = resultsHTML;
+        }
+    </script>
+</body>
+</html>
