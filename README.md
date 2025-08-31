@@ -7,7 +7,8 @@ AI-powered image analysis using Google's Gemini 2.5 Pro
 - **AI-Powered Analysis**: Intelligent image understanding with Gemini 2.5 Pro
 - **Multiple Image Support**: Upload and process multiple images simultaneously
 - **Smart Search**: Search through processed images using natural language descriptions
-- **Image Storage**: Automatically stores uploaded images in organized folders
+- **Cloud Storage**: Automatic ImageKit integration for cloud image storage
+- **Local Storage**: Stores uploaded images in organized local folders
 - **Multiple Formats**: Supports PNG, JPG, JPEG, GIF, BMP, and WEBP
 
 ## 🚀 Quick Start
@@ -16,6 +17,7 @@ AI-powered image analysis using Google's Gemini 2.5 Pro
 
 - Python 3.8 or higher
 - Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+- ImageKit account for cloud image storage (optional but recommended)
 
 ### 2. Installation
 
@@ -38,11 +40,32 @@ Create a `.env` file in the project root:
 # Copy the example file
 cp env_example.txt .env
 
-# Edit .env and add your actual Gemini API key
+# Edit .env and add your actual API keys
 GEMINI_API_KEY=your_actual_api_key_here
+
+# ImageKit Configuration (optional but recommended)
+IMAGEKIT_ID=your_imagekit_id
+IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your_id
+IMAGEKIT_PUBLIC_KEY=your_public_key
+IMAGEKIT_PRIVATE_KEY=your_private_key
 ```
 
-### 4. Testing Multiple Image Processing
+### 4. Testing ImageKit Integration
+
+Test the ImageKit cloud storage functionality:
+
+```bash
+# Test ImageKit integration
+python test_imagekit.py
+
+# This will:
+# - Verify your ImageKit credentials work
+# - Test image upload to cloud storage
+# - Test image retrieval and management
+# - Confirm cloud storage integration
+```
+
+### 5. Testing Multiple Image Processing
 
 Before running the web server, test multiple image processing:
 
@@ -57,7 +80,7 @@ python test_multiple_images.py
 # - Check image upload functionality
 ```
 
-### 5. Testing Search Functionality
+### 6. Testing Search Functionality
 
 Test the search feature:
 
@@ -85,8 +108,10 @@ Then open your browser to `http://localhost:5000`
 The web interface allows you to:
 - Upload multiple images simultaneously
 - Process images with Gemini 2.5 Pro
+- Automatically store images in ImageKit cloud storage
 - Search through processed images using natural language descriptions
 - View analysis results and download JSON files
+- Manage cloud-stored images directly from the interface
 
 
 
@@ -97,6 +122,8 @@ PHOTO-CONTEXT/
 ├── index.html            # Web interface
 ├── web_server.py         # Flask web server
 ├── image_processor.py    # Core image processing logic
+├── imagekit_service.py   # ImageKit cloud storage service
+├── test_imagekit.py      # ImageKit integration test script
 ├── requirements.txt      # Python dependencies
 ├── env_example.txt       # Environment variables template
 ├── README.md            # This file
@@ -115,8 +142,17 @@ The main class that handles:
 - Image processing and analysis
 - Multiple image batch processing
 - Image storage in uploads folder
+- Automatic ImageKit cloud storage integration
 - JSON file generation and storage
 - Smart search through processed images
+
+### ImageKit Service (`imagekit_service.py`)
+
+Cloud storage service that provides:
+- Automatic image upload to ImageKit
+- Image management (upload, delete, list, info)
+- URL generation with transformations
+- Folder organization and tagging
 
 ### Web Interface (`index.html`)
 
@@ -155,7 +191,16 @@ Each processed image generates a JSON file with:
   "prompt_used": "Analyze this image...",
   "context": "Detailed analysis from Gemini...",
   "processing_status": "success",
-  "upload_path": "uploads/image_20240115_103000.jpg"
+  "upload_path": "uploads/image_20240115_103000.jpg",
+  "imagekit": {
+    "success": true,
+    "imagekit_url": "https://ik.imagekit.io/your_id/photo-context/image_20240115_103000.jpg",
+    "imagekit_id": "unique_imagekit_id",
+    "file_name": "image_20240115_103000.jpg",
+    "file_size": 123456,
+    "file_type": "image/jpeg",
+    "folder": "photo-context"
+  }
 }
 ```
 
@@ -222,9 +267,10 @@ python cli.py --batch vacation_photos/ --prompt "Describe the location and activ
 ### Common Issues
 
 1. **API Key Error**: Ensure your `.env` file contains the correct `GEMINI_API_KEY`
-2. **Image Format**: Check that your image is in a supported format
-3. **File Permissions**: Ensure the script can write to the output directory
-4. **Network Issues**: Check your internet connection for API calls
+2. **ImageKit Error**: Check your ImageKit credentials in the `.env` file
+3. **Image Format**: Check that your image is in a supported format
+4. **File Permissions**: Ensure the script can write to the output directory
+5. **Network Issues**: Check your internet connection for API calls
 
 ### Getting Help
 
@@ -243,10 +289,11 @@ python cli.py --batch vacation_photos/ --prompt "Describe the location and activ
 
 Potential improvements:
 - Support for video analysis
-- Integration with cloud storage
+- Advanced ImageKit transformations and optimization
 - Advanced prompt templates
 - Export to other formats (CSV, XML)
 - Real-time processing with webhooks
+- ImageKit analytics and usage tracking
 
 ## 🤝 Contributing
 

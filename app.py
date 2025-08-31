@@ -16,7 +16,7 @@ st.set_page_config(
 )
 
 def main():
-    st.title("🖼️ Image Context Analyzer with Gemini 2.5 Pro")
+    st.title("🖼️ Image Context Analyzer with Gemini ")
     st.markdown("Upload an image and get detailed context analysis using Google's Gemini AI model")
     
     # Check for API key
@@ -38,10 +38,19 @@ def main():
     # Sidebar for options
     st.sidebar.header("⚙️ Options")
     
+    # ImageKit Status
+    st.sidebar.subheader("☁️ ImageKit Status")
+    if processor.imagekit_service:
+        st.sidebar.success("✅ ImageKit Connected")
+        st.sidebar.info(f"Endpoint: {processor.imagekit_service.url_endpoint}")
+    else:
+        st.sidebar.error("❌ ImageKit Not Available")
+        st.sidebar.info("Check your ImageKit credentials in .env file")
+    
     # Custom prompt input
     custom_prompt = st.sidebar.text_area(
         "Custom Analysis Prompt (Optional)",
-        value="Dynamic Universal Image Analysis Prompt\n\nSystem Role:\nYou are an advanced multimodal AI trained to perform exhaustive image analysis with maximum depth, precision, and creativity. Your job is not just to describe, but to extract, interpret, cross-reference, and contextualize every possible detail from an image.\n\nAnalyze the input image step by step and provide the most comprehensive extraction possible. Follow this layered approach:\n\n1. Raw Text Extraction (OCR++)\n2. Object & Scene Recognition\n3. People & Identity Clues\n4. Event / Situation Context\n5. Brand / Logo / Product Detection\n6. Colors, Style & Aesthetic\n7. Internet / Cultural Cross-Reference\n8. Metadata & Hidden Clues\n9. Contextual Reasoning\n10. Rich Human-Friendly Summary\n\nPlease be comprehensive and provide as much detail as possible.",
+        value="Dynamic Universal Image Analysis Prompt\n\nSystem Role:\nYou are an advanced multimodal AI trained to perform exhaustive image analysis with maximum depth, precision, and creativity. Your job is not just to describe, but to extract, interpret, cross-reference, and contextualize every possible detail from an image.\n\nAnalyze the input image step by step and provide the most comprehensive extraction possible. Follow this layered approach:\n\n1. Raw Text Extraction (OCR++)\n2. Object & Scene Recognition\nn3. People & Identity Clues\n4. Event / Situation Context\n5. Brand / Logo / Product Detection\n6. Colors, Style & Aesthetic\n7. Internet / Cultural Cross-Reference\n8. Metadata & Hidden Clues\n9. Contextual Reasoning\n10. Rich Human-Friendly Summary\n\nPlease be comprehensive and provide as much detail as possible.",
         height=200,
         help="Customize how Gemini analyzes your image"
     )
@@ -54,7 +63,7 @@ def main():
     )
     
     # Main content area
-    col1, col2 = st.columns([1, 1])
+    col1, col2, col3 = st.columns([1, 1, 1])
     
     with col1:
         st.header("📤 Upload Image")
@@ -94,6 +103,19 @@ def main():
                             
                             # Display results
                             st.subheader("📊 Analysis Results")
+                            
+                            # Show ImageKit status if available
+                            if 'imagekit' in result and result['imagekit']:
+                                if result['imagekit'].get('success'):
+                                    st.success("☁️ Image successfully uploaded to ImageKit!")
+                                    st.info(f"**ImageKit URL:** [View Image]({result['imagekit']['imagekit_url']})")
+                                    st.info(f"**ImageKit ID:** {result['imagekit']['imagekit_id']}")
+                                    
+                                    # Display the uploaded image from ImageKit
+                                    st.image(result['imagekit']['imagekit_url'], caption="Image stored in ImageKit", use_column_width=True)
+                                else:
+                                    st.error(f"❌ ImageKit upload failed: {result['imagekit'].get('error', 'Unknown error')}")
+                            
                             st.json(result)
                             
                             # Download button for JSON
@@ -141,11 +163,63 @@ def main():
                         if item['status'] == 'success':
                             st.write("**Context:**")
                             st.write(data.get('context', 'No context available'))
+                            
+                            # Display ImageKit information if available
+                            if 'imagekit' in data and data['imagekit'] and data['imagekit'].get('success'):
+                                st.success("☁️ Stored in ImageKit")
+                                st.write(f"**ImageKit URL:** [View Image]({data['imagekit']['imagekit_url']})")
+                                st.write(f"**ImageKit ID:** {data['imagekit']['imagekit_id']}")
+                            elif 'imagekit' in data and data['imagekit']:
+                                st.error(f"❌ ImageKit Upload Failed: {data['imagekit'].get('error', 'Unknown error')}")
                         else:
                             st.write(f"**Error:** {data.get('error', 'Unknown error')}")
                             
                     except Exception as e:
                         st.error(f"Error loading file: {str(e)}")
+    
+    with col3:
+        st.header("☁️ ImageKit Storage")
+        
+        if processor.imagekit_service:
+            # Get ImageKit images
+            if st.button("🔄 Refresh ImageKit Images", type="secondary"):
+                st.rerun()
+            
+            try:
+                imagekit_images = processor.get_imagekit_images()
+                
+                if imagekit_images.get('success'):
+                    st.success(f"✅ {imagekit_images['total_images']} images in ImageKit")
+                    
+                    # Display ImageKit images
+                    for img in imagekit_images['images'][:5]:  # Show first 5
+                        with st.expander(f"🖼️ {img['file_name']}"):
+                            st.write(f"**Size:** {img['file_size']} bytes")
+                            st.write(f"**Type:** {img['file_type']}")
+                            st.write(f"**Created:** {img['created_at']}")
+                            
+                            # Display image
+                            st.image(img['imagekit_url'], caption=img['file_name'], use_column_width=True)
+                            
+                            # Download link
+                            st.markdown(f"[📥 Download Image]({img['imagekit_url']})")
+                            
+                            # Delete button
+                            if st.button(f"🗑️ Delete", key=f"delete_{img['imagekit_id']}"):
+                                delete_result = processor.imagekit_service.delete_image(img['imagekit_id'])
+                                if delete_result.get('success'):
+                                    st.success("Image deleted successfully!")
+                                    st.rerun()
+                                else:
+                                    st.error(f"Delete failed: {delete_result.get('error')}")
+                else:
+                    st.error(f"❌ Failed to get ImageKit images: {imagekit_images.get('error')}")
+                    
+            except Exception as e:
+                st.error(f"❌ Error accessing ImageKit: {str(e)}")
+        else:
+            st.error("❌ ImageKit service not available")
+            st.info("Please check your ImageKit credentials in the .env file")
     
     # Footer
     st.markdown("---")

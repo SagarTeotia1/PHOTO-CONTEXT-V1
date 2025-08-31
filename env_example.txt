@@ -1,3 +1,10 @@
 # Gemini API Key
 # Get your API key from: https://makersuite.google.com/app/apikey
 GEMINI_API_KEY=your_gemini_api_key_here
+
+# ImageKit Configuration
+# Get your credentials from: https://imagekit.io/dashboard/developers/api-keys
+IMAGEKIT_ID=7lzd57wvb
+IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/7lzd57wvb
+IMAGEKIT_PUBLIC_KEY=public_W/urEuREn5YAVXW96DvTXj807EM=
+IMAGEKIT_PRIVATE_KEY=private_10uoKKHTYTayPtBxsJd1Q7VOiOo=

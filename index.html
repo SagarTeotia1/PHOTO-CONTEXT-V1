@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
@@ -36,7 +37,7 @@
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .header p {
@@ -114,7 +115,7 @@
             max-width: 100%;
             max-height: 300px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .options-section {
@@ -221,8 +222,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .error {
@@ -284,7 +290,7 @@
 
         .history-item:hover {
             transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .history-item h4 {
@@ -395,7 +401,7 @@
 
         .search-result-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         .search-result-header {
@@ -509,17 +515,24 @@
                 gap: 20px;
                 padding: 20px;
             }
-            
+
             .header h1 {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>AI _ Image DRIVE</h1>
+            <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                <span id="storageInfo">Storage: Checking...</span>
+                <button onclick="checkStorageUsage()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 2px 8px; border-radius: 3px; cursor: pointer; margin-left: 10px; font-size: 0.8rem;">
+                    🔄 Refresh
+                </button>
+            </div>
         </div>
 
         <div class="main-content">
@@ -542,25 +555,271 @@
                 <h2>⚙️ Analysis Options</h2>
                 <div class="form-group">
                     <label for="customPrompt">Custom Analysis Prompt:</label>
-                    <textarea id="customPrompt" placeholder="Dynamic Universal Image Analysis Prompt - Comprehensive 10-step analysis including OCR, object recognition, people analysis, context, brands, aesthetics, cultural references, metadata, and human-friendly summary.">Dynamic Universal Image Analysis Prompt
+                    <textarea id="customPrompt"
+                        placeholder="Dynamic Universal Image Analysis Prompt - Comprehensive 10-step analysis including OCR, object recognition, people analysis, context, brands, aesthetics, cultural references, metadata, and human-friendly summary."># Universal Enhanced Image Analysis Prompt
 
-System Role:
-You are an advanced multimodal AI trained to perform exhaustive image analysis with maximum depth, precision, and creativity. Your job is not just to describe, but to extract, interpret, cross-reference, and contextualize every possible detail from an image.
-
-Analyze the input image step by step and provide the most comprehensive extraction possible. Follow this layered approach:
-
-1. Raw Text Extraction (OCR++)
-2. Object & Scene Recognition
-3. People & Identity Clues
-4. Event / Situation Context
-5. Brand / Logo / Product Detection
-6. Colors, Style & Aesthetic
-7. Internet / Cultural Cross-Reference
-8. Metadata & Hidden Clues
-9. Contextual Reasoning
-10. Rich Human-Friendly Summary
-
-Please be comprehensive and provide as much detail as possible.</textarea>
+                        ## System Role
+                        You are an expert multimodal AI analyst specializing in exhaustive image interpretation, cross-referencing, and contextual reasoning. Your mission is to extract maximum insight from visual content through systematic analysis, web research validation, and comprehensive reporting.
+                        
+                        ## Core Analysis Framework
+                        
+                        ### Phase 1: Foundational Visual Processing
+                        
+                        **1.1 Complete Text Extraction & OCR++**
+                        - Extract ALL visible text regardless of size, clarity, orientation, or distortion
+                        - Capture: printed text, handwritten notes, stylized fonts, watermarks, logos, signs, labels
+                        - Preserve exact formatting: line breaks, indentation, table structures, bullet points
+                        - Include partial/cropped text with [PARTIAL] notation
+                        - Detect language(s) and provide translations if non-English
+                        - Note text hierarchy (headlines, subtext, captions, fine print)
+                        
+                        **1.2 Comprehensive Object & Scene Inventory**
+                        - Catalog every identifiable object, tool, item, structure, or element
+                        - Specify spatial relationships: foreground/background, left/right, above/below
+                        - Describe physical properties: size, condition, age, materials
+                        - Note interactions between objects and environmental context
+                        - Classify scene type: indoor/outdoor, natural/artificial, public/private, formal/casual
+                        
+                        **1.3 Human Subject Analysis**
+                        - Demographics: apparent age ranges, gender presentation, ethnicity (when relevant)
+                        - Physical attributes: clothing, accessories, hairstyles, notable features
+                        - Behavioral cues: postures, gestures, facial expressions, apparent emotions
+                        - Social dynamics: relationships, hierarchies, group interactions
+                        - Professional/role indicators: uniforms, badges, equipment
+                        
+                        ### Phase 2: Identity & Recognition Systems
+                        
+                        **2.1 Enhanced Public Figure & Key Person Identification**
+                        - **Systematic Recognition Process**:
+                          - Analyze facial features, distinctive characteristics, and body language
+                          - Note clothing, accessories, or items that might indicate profession/role
+                          - Look for name tags, badges, or identifying text
+                          - Consider context clues (venue, other people present, event type)
+                        
+                        - **Multi-Level Identification Strategy**:
+                          - **Level 1**: Immediate recognition of globally famous figures
+                          - **Level 2**: Industry-specific celebrities (sports, politics, entertainment, business)
+                          - **Level 3**: Regional or niche public figures
+                          - **Level 4**: Professional or contextual roles (officials, speakers, organizers)
+                        
+                        - **Confidence Scoring with Evidence**:
+                          - **High Confidence (90%+)**: Multiple distinctive features match, confirmed by context
+                          - **Medium Confidence (60-89%)**: Strong resemblance with supporting context clues
+                          - **Low Confidence (30-59%)**: Possible match requiring verification
+                          - **Uncertain (<30%)**: Insufficient visual information for identification
+                        
+                        - **Mandatory Verification for Event Context**:
+                          - If any person is identified, immediately search: "[Person name] + [date range] + [location/venue]"
+                          - Cross-reference their public schedule, social media, or news coverage
+                          - Look for other attendees or participants who might be visible
+                          - Verify their connection to the suspected event type
+                        
+                        **2.2 Brand & Commercial Recognition**
+                        - Identify corporate logos, brand marks, product packaging, store signage
+                        - Classify industries: technology, fashion, automotive, food/beverage, entertainment, etc.
+                        - Note brand positioning (luxury, mainstream, budget) and target demographics
+                        - Recognize sponsored content or product placement
+                        
+                        ## Enhanced Event Detection Examples & Strategies
+                        
+                        ### Critical Visual Indicators for Major Event Types:
+                        
+                        **Political Events:**
+                        - Look for: Government seals, political party logos, campaign banners, podiums with official insignia
+                        - Search strategy: "[Visible text/logos] + political event + [timeframe]"
+                        - Key figures: Politicians, government officials, campaign staff
+                        
+                        **Award Shows & Entertainment:**
+                        - Look for: Red carpets, step-and-repeat backgrounds, trophy imagery, entertainment venue architecture
+                        - Search strategy: "[Venue name/distinctive backdrop] + award show + [year]"
+                        - Key figures: Celebrities, presenters, industry professionals
+                        
+                        **Sports Events:**
+                        - Look for: Team uniforms, stadium features, scoreboards, sports equipment, crowd formations
+                        - Search strategy: "[Team colors/logos] + [sport type] + [venue] + [date]"
+                        - Key figures: Athletes, coaches, officials, commentators
+                        
+                        **Corporate/Business Events:**
+                        - Look for: Company logos, conference staging, business attire, name badges, presentation screens
+                        - Search strategy: "[Company logo] + conference/event + [location] + [year]"
+                        - Key figures: Executives, speakers, industry leaders
+                        
+                        **Cultural/Social Events:**
+                        - Look for: Cultural symbols, traditional dress, ceremonial objects, festival decorations
+                        - Search strategy: "[Cultural elements] + [location] + festival/celebration + [timeframe]"
+                        - Key figures: Community leaders, performers, dignitaries
+                        
+                        ### Mandatory Search Queries for Event Identification:
+                        1. **Exact text extraction search**: Search any readable text verbatim
+                        2. **Visual similarity search**: Use reverse image search tools
+                        3. **Contextual combination search**: "[Key person] + [location] + [event type] + [date range]"
+                        4. **News archive search**: "[Suspected event] + news + [timeframe]"
+                        5. **Social media hashtag search**: Look for event-specific hashtags or trending topics
+                        
+                        **3.1 Advanced Event & Situational Context Detection**
+                        - **Primary Event Classification**: Systematically analyze visual cues to determine event type:
+                          - Sports events: Look for uniforms, team colors, stadiums, scoreboards, crowds, equipment
+                          - Political events: Identify podiums, flags, campaign materials, government buildings, official ceremonies
+                          - Entertainment: Stage lighting, performers, audiences, venues, red carpets, award shows
+                          - Educational: Classrooms, graduation caps, academic regalia, school logos, learning materials
+                          - Religious: Ceremonial objects, religious symbols, traditional dress, places of worship
+                          - Corporate: Business attire, conference settings, company logos, networking events
+                          - Social celebrations: Decorations, cake, formal wear, gift wrapping, party supplies
+                          - News events: Media presence, breaking news overlays, emergency vehicles, crowds
+                        
+                        - **Event-Specific Visual Markers**: Look for distinctive elements that pinpoint exact events:
+                          - Venue architecture and distinctive features
+                          - Specific logos, banners, or signage with event names/dates
+                          - Unique staging, decorations, or branding
+                          - Celebrity attendees or notable figures
+                          - Broadcast graphics or media watermarks
+                          - Crowd size and composition patterns
+                          - Security or staff uniforms and equipment
+                        
+                        - **Temporal and Geographic Context Clues**:
+                          - Weather conditions and seasonal indicators
+                          - Architectural styles specific to regions
+                          - Language on signs and cultural dress
+                          - Technology visible (phones, cameras, screens) to estimate time period
+                          - Fashion trends and styles to narrow timeframe
+                          - Currency, license plates, or regional symbols
+                        
+                        - **Cross-Reference Strategy for Event Identification**:
+                          - If you identify potential event markers, IMMEDIATELY search for:
+                            - "Event name + date + location" if any are visible
+                            - Notable attendees + event type + timeframe
+                            - Venue name + event type + recent dates
+                            - Unique visual elements + event context
+                          - Search for reverse image matches to find original source and context
+                          - Look up news coverage from the apparent timeframe
+                          - Verify through multiple independent sources
+                        
+                        **3.2 Systematic Web Research & Event Verification Protocol**
+                        *Execute this enhanced search strategy for event identification:*
+                        
+                        **Step 1: Visual Element Extraction**
+                        - Catalog ALL text visible in the image (signs, banners, screens, clothing, etc.)
+                        - Note distinctive objects, symbols, or branding elements
+                        - Identify any people who might be recognizable
+                        - Document unique architectural or venue features
+                        
+                        **Step 2: Multi-Vector Search Approach**
+                        - **Text-based searches**: Search exact phrases found in the image
+                        - **Visual similarity search**: Look for identical or similar images
+                        - **Entity combination searches**: Combine identified people + location + context
+                        - **Reverse chronological search**: If timeframe is suspected, search that period
+                        - **News verification**: Cross-check against news archives and media coverage
+                        
+                        **Step 3: Event Database Cross-Reference**
+                        Search specific databases and sources:
+                        - Major news outlets for the suspected timeframe
+                        - Event venue websites and social media accounts
+                        - Celebrity/public figure social media and news coverage
+                        - Sports databases, award show archives, political event records
+                        - Social media hashtags and trending topics from the period
+                        
+                        **Step 4: Validation and Confirmation**
+                        - Require at least 2-3 independent sources confirming the same event
+                        - Look for official documentation or press releases
+                        - Verify attendee lists or participant rosters
+                        - Cross-check dates, locations, and other factual details
+                        - Flag any conflicting information or uncertainty
+                        
+                        **3.3 Platform & Media Type Detection**
+                        - Identify source platform: Instagram, Twitter/X, TikTok, LinkedIn, news sites, etc.
+                        - Recognize UI elements, platform-specific features, interaction buttons
+                        - Note screenshot artifacts, mobile/desktop indicators
+                        - Detect editing or filtering applied
+                        
+                        ### Phase 4: Technical & Aesthetic Analysis
+                        
+                        **4.1 Visual Composition & Style**
+                        - Color palette: dominant/accent colors with hex codes when possible
+                        - Artistic style: photographic, illustrated, vintage, modern, minimalist, maximalist
+                        - Composition techniques: rule of thirds, leading lines, symmetry, framing
+                        - Lighting analysis: natural/artificial, direction, mood, quality
+                        
+                        **4.2 Technical Metadata Inference**
+                        - Image source: photograph, screenshot, scan, digital artwork, AI-generated
+                        - Camera/device indicators: quality, perspective, lens effects
+                        - Editing evidence: filters, retouching, composite elements
+                        - Resolution and quality assessment
+                        
+                        ### Phase 5: Cultural & Historical Context
+                        
+                        **5.1 Cultural Significance & References**
+                        - Identify cultural symbols, traditions, or practices
+                        - Recognize historical periods, architectural styles, fashion eras
+                        - Note religious, political, or social symbolism
+                        - Detect references to pop culture, literature, or art
+                        
+                        **5.2 Meme & Viral Content Recognition**
+                        - Identify known memes, viral images, or internet phenomena
+                        - Explain cultural significance and typical usage
+                        - Trace origin story and evolution if known
+                        - Note current relevance or trending status
+                        
+                        ### Phase 6: Security & Privacy Considerations
+                        
+                        **6.1 Sensitive Information Detection**
+                        - Flag visible personal data: phone numbers, emails, addresses, IDs
+                        - Note security badges, access cards, or confidential markings
+                        - Identify potential privacy concerns or OPSEC issues
+                        - Highlight any legal or safety implications
+                        
+                        ### Phase 7: Comprehensive Synthesis
+                        
+                        **7.1 Purpose & Intent Analysis**
+                        - Determine likely image purpose: documentation, marketing, personal, news, evidence
+                        - Assess target audience and intended message
+                        - Note emotional tone and psychological impact
+                        - Suggest optimal categorization tags
+                        
+                        **7.2 Event-Focused Rich Narrative Description**
+                        Provide a detailed, accessible description that:
+                        - **Event Context First**: Lead with the identified event and its significance
+                        - **Timeline Placement**: Establish when and where this event occurred
+                        - **Key Participants**: Explain who is present and their roles/importance
+                        - **Event Significance**: Describe why this event matters historically, culturally, or socially
+                        - **Visual Story**: Tell what's happening in the moment captured
+                        - **Broader Impact**: Connect to larger themes, consequences, or related events
+                        - **Verification Status**: Clearly state confidence level and sources used for identification
+                        
+                        **7.3 Event Identification Confidence Matrix**
+                        Rate event identification confidence:
+                        - **Confirmed Event (95-100%)**: Multiple sources verify exact event, date, location
+                        - **Highly Likely Event (80-94%)**: Strong evidence with minor gaps in verification
+                        - **Probable Event (60-79%)**: Good contextual match but requires more confirmation
+                        - **Possible Event (40-59%)**: Some indicators but significant uncertainty remains
+                        - **Unknown Event (0-39%)**: Insufficient evidence for specific event identification
+                        
+                        **Always include:**
+                        - Specific search terms used for verification
+                        - Sources that confirmed or contradicted the identification
+                        - Alternative possibilities if primary identification is uncertain
+                        - Gaps in evidence that prevent higher confidence rating
+                        
+                        ## Output Format Guidelines
+                        
+                        - Use clear headings and structured organization
+                        - Provide specific evidence for all claims
+                        - Include relevant quotes of extracted text
+                        - Use bullet points for inventory-style information
+                        - Write flowing paragraphs for narrative sections
+                        - Always cite web sources when used for verification
+                        - Flag urgent or sensitive findings prominently
+                        
+                        ## Quality Assurance Protocols
+                        
+                        - Cross-verify major identifications through multiple approaches
+                        - Question initial assumptions and consider alternative interpretations
+                        - Prioritize accuracy over speculation
+                        - Distinguish between direct observation and inference
+                        - Update analysis if web research reveals contradictory information
+                        
+                        ---
+                        
+                        *Remember: This analysis should be thorough but respectful of privacy, accurate but acknowledging uncertainty, and comprehensive while remaining accessible to human readers.*</textarea>
                 </div>
                 <div class="form-group">
                     <label for="customFilename">Custom JSON Filename (Optional):</label>
@@ -573,10 +832,11 @@ Please be comprehensive and provide as much detail as possible.</textarea>
         </div>
 
         <div class="search-section">
-            <h2>🔍 Search Photos</h2>
+            <h2>🔍 Search Photos <span style="font-size: 0.8rem; color: #667eea; background: rgba(102, 126, 234, 0.1); padding: 4px 8px; border-radius: 12px; margin-left: 10px;">🤖 AI-Powered</span></h2>
             <div class="search-container">
                 <div class="search-input-group">
-                    <input type="text" id="searchInput" placeholder="Describe what you're looking for..." class="search-input">
+                    <input type="text" id="searchInput" placeholder="Describe what you're looking for..."
+                        class="search-input">
                     <button onclick="searchImages()" class="search-btn">🔍 Search</button>
                 </div>
                 <div class="search-options">
@@ -586,6 +846,9 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                         <option value="5" selected>5</option>
                         <option value="10">10</option>
                     </select>
+                    <div style="margin-left: 15px; padding: 5px 10px; background: rgba(102, 126, 234, 0.1); border-radius: 8px; font-size: 0.9rem; color: #667eea;">
+                        🤖 AI Search Active
+                    </div>
                 </div>
             </div>
             <div class="search-summary" id="searchSummary" style="display: none;">
@@ -593,10 +856,14 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     <span class="stat-item">📊 <strong id="totalBatches">0</strong> batches</span>
                     <span class="stat-item">🖼️ <strong id="totalImages">0</strong> images</span>
                     <span class="stat-item">🕒 Last updated: <span id="lastUpdated">Never</span></span>
+                    <span class="stat-item">🤖 <strong id="aiSearchStatus">AI Active</strong></span>
                 </div>
                 <div style="text-align: center; margin-top: 15px;">
                     <button onclick="showAllBatches()" class="search-btn" style="background: #28a745;">
                         📋 View All Batches
+                    </button>
+                    <button onclick="toggleSearchMode()" class="search-btn" style="background: #ffc107; color: #000; margin-left: 10px;">
+                        🔄 Toggle Search Mode
                     </button>
                 </div>
             </div>
@@ -604,15 +871,31 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                 <h3>Search Results</h3>
                 <div id="searchResultsContent"></div>
             </div>
+            
+            <div class="search-status" id="searchStatus" style="display: none; text-align: center; margin-top: 20px; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                <div class="spinner" style="width: 30px; height: 30px; border-top-color: #667eea;"></div>
+                <p style="margin-top: 10px; color: #667eea; font-weight: 600;">🤖 AI is analyzing your search query with Gemini 2.5 Pro...</p>
+                <p style="font-size: 0.9rem; color: #6c757d;">This may take a few seconds for complex queries</p>
+            </div>
         </div>
 
         <div class="results-section" id="resultsSection" style="display: none;">
             <h2>📊 Analysis Results</h2>
+            <div style="text-align: right; margin-bottom: 15px;">
+                <button onclick="showHistory()" style="background: #667eea; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">
+                    📋 Show History
+                </button>
+            </div>
             <div id="resultsContent"></div>
         </div>
 
         <div class="history-section" id="historySection" style="display: none;">
             <h2>📋 Processing History</h2>
+            <div style="text-align: right; margin-bottom: 15px;">
+                <button onclick="clearStorage()" style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">
+                    🗑️ Clear Storage
+                </button>
+            </div>
             <div id="historyContent"></div>
         </div>
 
@@ -629,31 +912,31 @@ Please be comprehensive and provide as much detail as possible.</textarea>
             const files = Array.from(event.target.files);
             if (files.length > 0) {
                 selectedFiles = files;
-                
+
                 // Update upload info
                 const imageCount = document.getElementById('imageCount');
                 const totalSize = document.getElementById('totalSize');
                 const uploadInfo = document.getElementById('uploadInfo');
-                
+
                 imageCount.textContent = files.length;
                 const totalSizeMB = (files.reduce((sum, file) => sum + file.size, 0) / (1024 * 1024)).toFixed(2);
                 totalSize.textContent = totalSizeMB;
                 uploadInfo.style.display = 'block';
-                
+
                 // Create preview grid
                 const preview = document.getElementById('imagePreview');
                 let previewHTML = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px;">';
-                
+
                 files.forEach((file, index) => {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         previewHTML += `
                             <div style="text-align: center;">
                                 <img src="${e.target.result}" alt="Preview ${index + 1}" style="max-width: 100%; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #dee2e6;">
                                 <p style="font-size: 0.8rem; margin-top: 5px; color: #6c757d;">${file.name}</p>
                             </div>
                         `;
-                        
+
                         // Update preview when all images are loaded
                         if (index === files.length - 1) {
                             preview.innerHTML = previewHTML + '</div>';
@@ -661,7 +944,7 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     };
                     reader.readAsDataURL(file);
                 });
-                
+
                 document.getElementById('processBtn').disabled = false;
             }
         }
@@ -690,12 +973,12 @@ Please be comprehensive and provide as much detail as possible.</textarea>
             try {
                 // Create FormData for file upload
                 const formData = new FormData();
-                
+
                 // Add all selected files
                 selectedFiles.forEach(file => {
                     formData.append('images', file);
                 });
-                
+
                 formData.append('prompt', document.getElementById('customPrompt').value);
                 formData.append('filename', document.getElementById('customFilename').value);
 
@@ -704,13 +987,13 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     method: 'POST',
                     body: formData
                 });
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
                     // Display successful results
                     displayResults(result.result);
@@ -720,6 +1003,9 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     // Display error results
                     displayResults(result.result);
                 }
+                
+                // Check storage usage after processing
+                checkStorageUsage();
 
             } catch (error) {
                 console.error('Processing error:', error);
@@ -740,26 +1026,26 @@ Please be comprehensive and provide as much detail as possible.</textarea>
 
         function displayResults(result) {
             const resultsContent = document.getElementById('resultsContent');
-            
+
             // Check if this is a batch result
             if (result.images && Array.isArray(result.images)) {
                 displayBatchResults(result);
                 return;
             }
-            
+
             // Handle single image result (backward compatibility)
             displaySingleImageResult(result);
         }
-        
+
         function displayBatchResults(batchResult) {
             const resultsContent = document.getElementById('resultsContent');
-            
+
             const totalImages = batchResult.total_images || 0;
             const successfulImages = batchResult.successful_images || 0;
             const failedImages = batchResult.failed_images || 0;
             const batchSummary = batchResult.batch_summary || '';
             const status = batchResult.processing_status || 'unknown';
-            
+
             let resultsHTML = `
                 <div class="result-content">
                     <div class="${status === 'completed' ? 'success' : 'error'}">
@@ -776,14 +1062,14 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     <h4>Individual Image Results:</h4>
                     <div style="max-height: 400px; overflow-y: auto;">
             `;
-            
+
             batchResult.images.forEach((imageResult, index) => {
                 const imageName = imageResult.image_name || 'Unknown';
                 const imageSize = imageResult.image_size || { width: 0, height: 0, format: 'Unknown' };
                 const context = imageResult.context || 'No context available';
                 const imgStatus = imageResult.processing_status || 'unknown';
                 const uploadPath = imageResult.upload_path || 'Not saved';
-                
+
                 resultsHTML += `
                     <div style="border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; margin: 10px 0; background: ${imgStatus === 'success' ? '#f8f9fa' : '#fff5f5'}">
                         <h5 style="margin: 0 0 10px 0; color: ${imgStatus === 'success' ? '#28a745' : '#dc3545'}">
@@ -796,7 +1082,7 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     </div>
                 `;
             });
-            
+
             resultsHTML += `
                     </div>
                     
@@ -805,13 +1091,13 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     </button>
                 </div>
             `;
-            
+
             resultsContent.innerHTML = resultsHTML;
         }
-        
+
         function displaySingleImageResult(result) {
             const resultsContent = document.getElementById('resultsContent');
-            
+
             // Safely access properties with fallbacks
             const imageName = result.image_name || 'Unknown';
             const imageSize = result.image_size || { width: 0, height: 0, format: 'Unknown' };
@@ -819,7 +1105,7 @@ Please be comprehensive and provide as much detail as possible.</textarea>
             const context = result.context || 'No context available';
             const status = result.processing_status || 'unknown';
             const uploadPath = result.upload_path || 'Not saved';
-            
+
             if (status === 'success') {
                 resultsContent.innerHTML = `
                     <div class="result-content">
@@ -878,27 +1164,46 @@ Please be comprehensive and provide as much detail as possible.</textarea>
         }
 
         function addToHistory(result) {
-            processingHistory.unshift({
+            // Create a lightweight history item with only essential data
+            const historyItem = {
                 id: Date.now(),
-                ...result
-            });
-            
+                image_name: result.image_name || 'Unknown',
+                processing_status: result.processing_status || 'unknown',
+                timestamp: result.timestamp || new Date().toISOString(),
+                // Only store a small preview of context to save space
+                context_preview: result.context ? result.context.substring(0, 100) + '...' : 'No context'
+            };
+
+            processingHistory.unshift(historyItem);
+
             // Keep only last 10 items
             if (processingHistory.length > 10) {
                 processingHistory = processingHistory.slice(0, 10);
             }
-            
-            // Save to localStorage
-            localStorage.setItem('imageAnalysisHistory', JSON.stringify(processingHistory));
+
+            // Try to save to localStorage with error handling
+            try {
+                localStorage.setItem('imageAnalysisHistory', JSON.stringify(processingHistory));
+            } catch (error) {
+                console.warn('Failed to save to localStorage (quota exceeded):', error);
+                // If localStorage is full, clear it and try to save just the current item
+                try {
+                    localStorage.clear();
+                    localStorage.setItem('imageAnalysisHistory', JSON.stringify([historyItem]));
+                } catch (clearError) {
+                    console.error('Failed to clear localStorage:', clearError);
+                    // If still failing, don't save history
+                }
+            }
         }
 
         function showHistory() {
             const historySection = document.getElementById('historySection');
             const historyContent = document.getElementById('historyContent');
-            
+
             if (historySection.style.display === 'none') {
                 historySection.style.display = 'block';
-                
+
                 if (processingHistory.length === 0) {
                     historyContent.innerHTML = '<p>No processing history found.</p>';
                 } else {
@@ -923,21 +1228,102 @@ Please be comprehensive and provide as much detail as possible.</textarea>
             const item = processingHistory[index];
             const resultsSection = document.getElementById('resultsSection');
             const resultsContent = document.getElementById('resultsContent');
-            
+
             resultsSection.style.display = 'block';
             displayResults(item);
-            
+
             // Scroll to results
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
 
         // Load history from localStorage on page load
-        window.onload = function() {
-            const savedHistory = localStorage.getItem('imageAnalysisHistory');
-            if (savedHistory) {
-                processingHistory = JSON.parse(savedHistory);
+        window.onload = function () {
+            try {
+                const savedHistory = localStorage.getItem('imageAnalysisHistory');
+                if (savedHistory) {
+                    processingHistory = JSON.parse(savedHistory);
+                }
+            } catch (error) {
+                console.warn('Failed to load history from localStorage:', error);
+                // Clear corrupted localStorage and start fresh
+                try {
+                    localStorage.clear();
+                    processingHistory = [];
+                } catch (clearError) {
+                    console.error('Failed to clear localStorage:', clearError);
+                }
             }
+            
+            // Check storage usage on page load
+            setTimeout(checkStorageUsage, 500);
+            
+            // Load saved search mode
+            loadSearchMode();
         };
+        
+        // Function to load saved search mode
+        function loadSearchMode() {
+            const savedMode = localStorage.getItem('searchMode');
+            if (savedMode === 'keyword') {
+                toggleSearchMode(); // This will switch to keyword mode
+            }
+        }
+
+        // Function to clear localStorage manually if needed
+        function clearStorage() {
+            try {
+                localStorage.clear();
+                processingHistory = [];
+                alert('Storage cleared successfully!');
+                // Refresh the page to show updated state
+                location.reload();
+            } catch (error) {
+                console.error('Failed to clear storage:', error);
+                alert('Failed to clear storage. Please try refreshing the page.');
+            }
+        }
+
+        // Function to check storage usage
+        function checkStorageUsage() {
+            try {
+                let totalSize = 0;
+                for (let key in localStorage) {
+                    if (localStorage.hasOwnProperty(key)) {
+                        totalSize += localStorage[key].length;
+                    }
+                }
+                const sizeInMB = (totalSize / (1024 * 1024)).toFixed(2);
+                
+                // Update the storage info display
+                const storageInfo = document.getElementById('storageInfo');
+                if (storageInfo) {
+                    if (totalSize > 4 * 1024 * 1024) {
+                        storageInfo.innerHTML = `Storage: <span style="color: #ffc107;">⚠️ ${sizeInMB}MB (High)</span>`;
+                        storageInfo.title = 'Storage usage is high. Consider clearing storage.';
+                    } else if (totalSize > 2 * 1024 * 1024) {
+                        storageInfo.innerHTML = `Storage: <span style="color: #ffc107;">${sizeInMB}MB (Medium)</span>`;
+                        storageInfo.title = 'Storage usage is moderate.';
+                    } else {
+                        storageInfo.innerHTML = `Storage: <span style="color: #90EE90;">${sizeInMB}MB (Good)</span>`;
+                        storageInfo.title = 'Storage usage is good.';
+                    }
+                }
+                
+                // Warn if storage is getting full (over 4MB)
+                if (totalSize > 4 * 1024 * 1024) {
+                    console.warn(`Storage usage: ${sizeInMB}MB - Consider clearing storage`);
+                    return { size: sizeInMB, warning: true };
+                }
+                return { size: sizeInMB, warning: false };
+            } catch (error) {
+                console.error('Failed to check storage usage:', error);
+                const storageInfo = document.getElementById('storageInfo');
+                if (storageInfo) {
+                    storageInfo.innerHTML = 'Storage: <span style="color: #dc3545;">Error</span>';
+                }
+                return { size: 'Unknown', warning: false };
+            }
+        }
 
         // Search functionality
         async function searchImages() {
@@ -945,25 +1331,48 @@ Please be comprehensive and provide as much detail as possible.</textarea>
             const maxResults = document.getElementById('maxResults');
             const searchResults = document.getElementById('searchResults');
             const searchResultsContent = document.getElementById('searchResultsContent');
-            
+
             if (!searchInput.value.trim()) {
                 alert('Please enter a search query!');
                 return;
             }
-            
-                    // Show loading state
-        searchResults.style.display = 'block';
-        searchResultsContent.innerHTML = `
-            <div class="search-loading">
-                <div class="spinner"></div>
-                <p>Searching for "${searchInput.value}"...</p>
-            </div>
-        `;
+
+                    // Check search mode
+        const searchMode = localStorage.getItem('searchMode') || 'ai';
+        const isAISearch = searchMode === 'ai';
         
-        // Show summary section
+        // Show appropriate search status
+        const searchStatus = document.getElementById('searchStatus');
+        if (isAISearch) {
+            searchStatus.style.display = 'block';
+            searchResultsContent.innerHTML = `
+                <div class="search-loading">
+                    <div class="spinner"></div>
+                    <p>🤖 AI-powered search for "${searchInput.value}"...</p>
+                    <p style="font-size: 0.9rem; color: #6c757d;">Using Gemini 2.5 Pro for semantic understanding</p>
+                </div>
+            `;
+        } else {
+            searchStatus.style.display = 'none';
+            searchResultsContent.innerHTML = `
+                <div class="search-loading">
+                    <div class="spinner"></div>
+                    <p>🔍 Keyword search for "${searchInput.value}"...</p>
+                    <p style="font-size: 0.9rem; color: #6c757d;">Using traditional keyword matching</p>
+                </div>
+            `;
+        }
+        
+        // Show results section
+        searchResults.style.display = 'block';
+
+                    // Show summary section
         const searchSummary = document.getElementById('searchSummary');
         searchSummary.style.display = 'block';
-            
+        
+        // Record search start time
+        const searchStartTime = Date.now();
+
             try {
                 const response = await fetch('/search', {
                     method: 'POST',
@@ -975,23 +1384,28 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                         max_results: parseInt(maxResults.value)
                     })
                 });
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const result = await response.json();
-                
+                const searchTime = Date.now() - searchStartTime;
+
                 if (result.success) {
-                    displaySearchResults(result);
+                    displaySearchResults(result, searchTime);
+                    // Hide AI search status
+                    document.getElementById('searchStatus').style.display = 'none';
                 } else {
                     searchResultsContent.innerHTML = `
                         <div class="error">
                             <strong>❌ Search failed:</strong> ${result.error || 'Unknown error'}
                         </div>
                     `;
+                    // Hide AI search status
+                    document.getElementById('searchStatus').style.display = 'none';
                 }
-                
+
             } catch (error) {
                 console.error('Search error:', error);
                 searchResultsContent.innerHTML = `
@@ -1001,22 +1415,24 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                         <small>Check the server logs for more details.</small>
                     </div>
                 `;
+                // Hide AI search status
+                document.getElementById('searchStatus').style.display = 'none';
             }
         }
-        
-        function displaySearchResults(searchData) {
+
+        function displaySearchResults(searchData, searchTime) {
             const searchResultsContent = document.getElementById('searchResultsContent');
-            
+
             // Update summary information
             const totalBatches = document.getElementById('totalBatches');
             const totalImages = document.getElementById('totalImages');
             const lastUpdated = document.getElementById('lastUpdated');
-            
+
             // Try to get summary info from the first result's source file
             if (searchData.results && searchData.results.length > 0) {
                 const firstResult = searchData.results[0];
                 const sourceFile = firstResult.source_file;
-                
+
                 // Load the source file to get summary info
                 fetch(`/download/${sourceFile}`)
                     .then(response => response.json())
@@ -1036,7 +1452,7 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     })
                     .catch(e => console.log('Could not load summary data'));
             }
-            
+
             if (!searchData.results || searchData.results.length === 0) {
                 searchResultsContent.innerHTML = `
                     <div class="no-results">
@@ -1046,13 +1462,25 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                 `;
                 return;
             }
-            
+
             let resultsHTML = `
                 <div class="search-summary">
                     <p><strong>Found ${searchData.total_found} images</strong> matching "${searchData.query}"</p>
+                    <div style="margin-top: 10px; padding: 10px; background: rgba(102, 126, 234, 0.05); border-radius: 8px; border-left: 3px solid #667eea;">
+                        <p style="margin: 0; font-size: 0.9rem; color: #667eea;">
+                            <strong>🤖 AI Search Results:</strong> 
+                            ${searchData.results.some(r => r.ai_reasoning && r.ai_reasoning !== 'Keyword-based fallback search') ? 
+                                'AI-powered semantic analysis completed successfully' : 
+                                'Using keyword-based fallback search'
+                            }
+                        </p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: #6c757d;">
+                            ⏱️ Search completed in ${searchTime}ms
+                        </p>
+                    </div>
                 </div>
             `;
-            
+
             searchData.results.forEach((result, index) => {
                 const imageName = result.image_name || 'Unknown';
                 const imageSize = result.image_size || { width: 0, height: 0, format: 'Unknown' };
@@ -1061,16 +1489,16 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                 const timestamp = result.timestamp || 'Unknown';
                 const imageUrl = result.image_url || '';
                 const imageExists = result.image_exists || false;
-                
+
                 resultsHTML += `
                     <div class="search-result-item">
                         <div class="search-result-header">
-                            ${imageExists && imageUrl ? 
-                                `<img src="${imageUrl}" alt="${imageName}" class="search-result-image">` : 
-                                `<div class="search-result-image" style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; color: #6c757d;">
+                            ${imageExists && imageUrl ?
+                        `<img src="${imageUrl}" alt="${imageName}" class="search-result-image">` :
+                        `<div class="search-result-image" style="background: #f8f9fa; display: flex; align-items: center; justify-content: center; color: #6c757d;">
                                     📷
                                 </div>`
-                            }
+                    }
                             <div class="search-result-info">
                                 <div class="search-result-title">${imageName}</div>
                                                                  <div class="search-result-meta">
@@ -1086,21 +1514,52 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                         </div>
                         <div class="search-result-context">
                             <strong>Context:</strong> ${context.substring(0, 300)}${context.length > 300 ? '...' : ''}
+                            ${result.ai_reasoning && result.ai_reasoning !== 'Keyword-based fallback search' ? 
+                                `<br><br><strong>🤖 AI Reasoning:</strong> <span style="color: #667eea; font-style: italic;">${result.ai_reasoning}</span>` : 
+                                ''
+                            }
                         </div>
                     </div>
                 `;
             });
-            
+
             searchResultsContent.innerHTML = resultsHTML;
         }
-        
+
         // Allow Enter key to trigger search
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 searchImages();
             }
         });
 
+        // Function to toggle between AI and keyword search modes
+        function toggleSearchMode() {
+            const aiStatus = document.getElementById('aiSearchStatus');
+            const searchTitle = document.querySelector('.search-section h2');
+            const searchIndicator = document.querySelector('.search-options div:last-child');
+            
+            if (aiStatus.textContent.includes('AI Active')) {
+                // Switch to keyword mode
+                aiStatus.innerHTML = '<strong>Keyword</strong>';
+                aiStatus.style.color = '#ffc107';
+                searchTitle.innerHTML = '🔍 Search Photos <span style="font-size: 0.8rem; color: #ffc107; background: rgba(255, 193, 7, 0.1); padding: 4px 8px; border-radius: 12px; margin-left: 10px;">🔍 Keyword-Based</span>';
+                searchIndicator.innerHTML = '🔍 Keyword Search';
+                searchIndicator.style.background = 'rgba(255, 193, 7, 0.1)';
+                searchIndicator.style.color = '#ffc107';
+                localStorage.setItem('searchMode', 'keyword');
+            } else {
+                // Switch to AI mode
+                aiStatus.innerHTML = '<strong>AI Active</strong>';
+                aiStatus.style.color = '#667eea';
+                searchTitle.innerHTML = '🔍 Search Photos <span style="font-size: 0.8rem; color: #667eea; background: rgba(102, 126, 234, 0.1); padding: 4px 8px; border-radius: 12px; margin-left: 10px;">🤖 AI-Powered</span>';
+                searchIndicator.innerHTML = '🤖 AI Search Active';
+                searchIndicator.style.background = 'rgba(102, 126, 234, 0.1)';
+                searchIndicator.style.color = '#667eea';
+                localStorage.setItem('searchMode', 'ai');
+            }
+        }
+        
         // Function to show all batches
         async function showAllBatches() {
             try {
@@ -1110,7 +1569,7 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     alert('No batch history found. Process some images first!');
                     return;
                 }
-                
+
                 const data = await response.json();
                 if (data.success && data.content) {
                     const jsonData = JSON.parse(data.content);
@@ -1125,9 +1584,9 @@ Please be comprehensive and provide as much detail as possible.</textarea>
         function displayAllBatches(batchData) {
             const searchResults = document.getElementById('searchResults');
             const searchResultsContent = document.getElementById('searchResultsContent');
-            
+
             searchResults.style.display = 'block';
-            
+
             if (!batchData.batches || batchData.batches.length === 0) {
                 searchResultsContent.innerHTML = `
                     <div class="no-results">
@@ -1137,7 +1596,7 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                 `;
                 return;
             }
-            
+
             let resultsHTML = `
                 <h3>📋 All Processing Batches</h3>
                 <div class="search-summary">
@@ -1146,12 +1605,12 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     <p><strong>Last Updated:</strong> ${new Date(batchData.last_updated || '').toLocaleString()}</p>
                 </div>
             `;
-            
+
             batchData.batches.forEach((batch, batchIndex) => {
                 const batchStatus = batch.processing_status || 'unknown';
                 const batchSummary = batch.batch_summary || 'No summary available';
                 const batchTimestamp = batch.batch_timestamp || batch.timestamp || 'Unknown';
-                
+
                 resultsHTML += `
                     <div class="search-result-item">
                         <div class="search-result-header">
@@ -1176,9 +1635,10 @@ Please be comprehensive and provide as much detail as possible.</textarea>
                     </div>
                 `;
             });
-            
+
             searchResultsContent.innerHTML = resultsHTML;
         }
     </script>
 </body>
+
 </html>
